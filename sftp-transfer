@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#Transfer several files using sftp
+#paramenters: <IP> <USER> <PRIV_KEY_PATH> <FILE> <DEST>
+
+sftp "$2"@"$1"<<EOF
+pwd
+EOF
