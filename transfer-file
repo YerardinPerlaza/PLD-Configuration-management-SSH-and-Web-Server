@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#Transfer a file through SCP
+#paramenters: <IP> <USER> <PRIV_KEY_PATH> <FILE> <DEST>
+
+if [[ $# -lt 4 ]]
+then
+	echo "Missing paramenteres"
+	echo "<IP> <USER> <PRIV_KEY_PATH> <FILE> [\"<DEST>\"]"
+	exit
+fi
+
+if [[ $# -eq 4 ]]
+then
+	scp -i "$3" "$4" "$2"@"$1":~/
+else
+	scp -i "$3" "$4" "$2"@"$1":"$5"
+fi
+
+
