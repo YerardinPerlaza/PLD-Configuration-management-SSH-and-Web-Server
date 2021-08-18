@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Transfer a file through SCP
+#!/usr/bin/env bash
+# Script to connect through SSH (IP, USER, PRIV-KEY, PATH-FILE, DESTINY-PATH)
+if [[ $# -lt 4 ]]
+then
+echo "Not enough parameters"
+elif [[ $# -eq 4 ]]
+then
+scp -i "$3" "$4" "$2"@"$1":~/
+else
+scp -i "$3" "$4" "$2"@"$1":"$5"
+fi 

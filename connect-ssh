@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Script to connect through SSH (IP, USER, PRIV-KEY)
+if [[ $# -lt 3 ]]
+then
+echo "Not enough parameters"
+exit
+fi
+ssh -i "$3"  "$2"@"$1"
