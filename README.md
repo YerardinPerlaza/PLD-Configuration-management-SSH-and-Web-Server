@@ -8,7 +8,7 @@ Restart some service.
 Let you to connect just typing “ssh my_server”
 
 Contain a certain commands to work with some servers services, how they work?
-<h3>How to connect through SSH:</h3> Receive 3 parameters(IP, USER, PRIV_KEY) to stablish connection
+<h3>connect through SSH:</h3> Receive 3 parameters(IP, USER, PRIV_KEY) to stablish connection
 
 `./connect-ssh ip user path_priv_key`
 
