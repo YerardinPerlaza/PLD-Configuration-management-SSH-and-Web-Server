@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 #This script conencts through ssh. Paramenters = <IP> <USER> <PRIV_KEY_PATH>
 
-if [[ $# -lt 3 ]]
+if [[ $# -lt 2 ]]
 then
-	echo "Missing paramenteres <IP> <USER> <PRIV_KEY_PATH>"
+	echo "Missing paramenteres <IP> <USER> [<PRIV_KEY_PATH>]"
 	exit
 fi
-ssh -i "$3" "$2"@"$1"
+if [[ $# -eq 3 ]]
+then
+	ssh -i "$3" "$2"@"$1"
+else
+	ssh "$2"@"$1"
+fi

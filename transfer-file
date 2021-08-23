@@ -1,19 +1,38 @@
 #!/usr/bin/env bash
 #Transfer a file through SCP
-#paramenters: <IP> <USER> <PRIV_KEY_PATH> <FILE> <DEST>
+#paramenters: <IP> <USER> <FILE> [-d"<DEST>"] [-k<PRIV_KEY_PATH>]
 
-if [[ $# -lt 4 ]]
+if [[ $# -lt 3 ]]
 then
 	echo "Missing paramenteres"
-	echo "<IP> <USER> <PRIV_KEY_PATH> <FILE> [\"<DEST>\"]"
+	echo "<IP> <USER> <FILE> [-d\"<DEST>\"] [-k<PRIV_KEY_PATH>]"
 	exit
 fi
 
-if [[ $# -eq 4 ]]
+if [[ $# -eq 3 ]]
 then
-	scp -i "$3" "$4" "$2"@"$1":~/
+	scp -o StrictHostKeyChecking=no "$3" "$2"@"$1":~/
+elif [[ $# -eq 4 ]]
+then
+	if [[ $4 == -k* ]]
+	then
+		key=$(echo "$4" | cut -c3-)
+		#echo "scp -i \"$key\" -o StrictHostKeyChecking=no \"$3\" \"$2\"@\"$1\":/~"
+		scp -i "$key" -o StrictHostKeyChecking=no "$3" "$2"@"$1":~/
+	elif [[ $4 == -d* ]]
+	then
+		dest=$(echo "$4" | cut -c3-)
+		scp -o StrictHostKeyChecking=no "$3" "$2"@"$1":"$dest"
+	else
+		echo "destiny or key path has to start with -d or -k"
+	fi
 else
-	scp -i "$3" "$4" "$2"@"$1":"$5"
+	if [[ $4 == -d* && $5 == -k* ]]
+	then
+		key=$(echo "$4" | cut -c3-)
+		dest=$(echo "$4" | cut -c3-)
+		scp -i "$key" "$3" "$2"@"$1":"$dest"
+	else
+		echo "destiny or key path has to start with -d or -k"
+	fi
 fi
-
-
